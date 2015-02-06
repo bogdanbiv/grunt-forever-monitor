@@ -1,6 +1,6 @@
 {
   "name": "grunt-forever-monitor",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Thin wrapper around forever-monitor.",
   "main": "Gruntfile.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "grunt": "~0.4.5"
   },
   "dependencies": {
-    "forever-monitor": "~1.5.2"
+    "forever-monitor": "~1.5.2",
+    "path": "~0.11.14"
   }
 }
