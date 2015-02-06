@@ -20,7 +20,7 @@ coverage
 .grunt
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+build
 *.tgz
 
 # Dependency directory
@@ -42,4 +42,9 @@ strongloop.json
 *.swp
 *.swo
 .DS_Store
+.directory
 
+# temporary runtime files
+.npm-debug.log
+tmp
+temp

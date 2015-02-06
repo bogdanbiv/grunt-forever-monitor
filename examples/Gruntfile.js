@@ -2,7 +2,13 @@ module.exports = function(grunt) {
     'use strict';
     var path = require('path');
 
-    // require('load-grunt-tasks')(grunt);
+    var gi = grunt.file.read(
+        path.join(__dirname, '..', '.gitignore'),
+        { encoding: 'utf8' });
+    var re1 = /^#.*/gm, re2 = /^\n/gm;
+    var ignoreFilesMattchingPatterns = gi.replace(re1, '', 'gm')
+        .replace(re2, '', 'gm').split('\n');
+
     grunt.initConfig({
         'forever-monitor': {
             options: {
@@ -17,10 +23,10 @@ module.exports = function(grunt) {
                     pidFile: path.join(__dirname, '..', 'runs', 'helloWorldd.pid'), // Not created!
                     watch: true,
                     watchIgnoreDotFiles: true,
-                    watchIgnorePatterns: ['*.log', '*~'],
+                    watchIgnorePatterns: ignoreFilesMattchingPatterns,
                     watchDirectory: path.join(__dirname, '..'),
                     logFile: path.join(__dirname, '..', 'runs', 'forever.log'), // not created
-                    outFile: path.join(__dirname, '..', 'runs', 'helloWorld.out.log'),
+                    outFile: 'helloWorld.out.log', // path.join(__dirname, '..', 'runs', 'helloWorld.out.log'),
                     errFile: path.join(__dirname, '..', 'runs', 'helloWorld.err.log'),
                     killTree: false,
                     append: true,

@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 
     child1.on('restart', function() {
         console.error('Forever restarting script for ' + child1.times + ' time');
-        console.log('log: ' + Object.keys(forever.logger));
+        console.log('log: ' + typeof(forever.logger));
     });
 
     child1.on('exit:code', function(code) {
