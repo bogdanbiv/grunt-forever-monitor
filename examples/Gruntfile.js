@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         .replace(re2, '', 'gm').split('\n');
 
     grunt.initConfig({
-        'forever-monitor': {
+        'FM': {
             options: {
             },
             dev: {
@@ -20,12 +20,11 @@ module.exports = function(grunt) {
                     max: 3,
                     silent: false,
                     cwd: path.join(__dirname, '..', 'runs'),
-                    pidFile: path.join(__dirname, '..', 'runs', 'helloWorldd.pid'), // Not created!
                     watch: true,
                     watchIgnoreDotFiles: true,
                     watchIgnorePatterns: ignoreFilesMattchingPatterns,
                     watchDirectory: path.join(__dirname, '..'),
-                    logFile: path.join(__dirname, '..', 'runs', 'forever.log'), // not created
+                    logFile: path.join(__dirname, '..', 'runs', 'dev', 'forever.log'), // not created
                     outFile: 'helloWorld.out.log', // path.join(__dirname, '..', 'runs', 'helloWorld.out.log'),
                     errFile: path.join(__dirname, '..', 'runs', 'helloWorld.err.log'),
                     killTree: false,
@@ -41,5 +40,16 @@ module.exports = function(grunt) {
 //         console.log('this.options: ' + JSON.stringify(this.options()));
 //     });
 
-    grunt.registerTask('default', ['forever-monitor:dev']);
+    grunt.registerTask('default', ['FM:dev',]);
+    grunt.renameTask('forever-monitor', 'FM');
+    grunt.event.on('FM:dev:fileChanged', function() {
+        console.log('grunt FM:dev:fileChanged');
+    });
+    grunt.event.on('FM:dev:restart', function() {
+        console.log('grunt received FM:dev:restart');
+    });
+    setTimeout(function() {
+        console.log('end this folly now! FM:dev:restartCmd');
+        grunt.event.emit('FM:dev:restartCmd', 'myWhim');
+    }, 3000);
 };
